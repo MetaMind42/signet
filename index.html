@@ -1,0 +1,314 @@
+<!DOCTYPE HTML>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Signet</title>
+	<meta name="description" content="Link-in-bio with links to my presence across the internet.">
+
+	<meta name="robots" content="index, follow">
+	<meta name="googlebot" content="index, follow">
+	<meta name="google" content="nositelinkssearchbox">
+	<meta name="google" content="notranslate">
+
+	<meta property="og:url" content="https://jakubpejzl.me">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="Jakub Pejzl">
+	<meta property="og:image" content="images/facebook.png">
+	<meta property="og:image:alt" content="Logo">
+	<meta property="og:description" content="Link-in-bio with links to my presence across the internet.">
+	<meta property="og:locale" content="en_GB">
+
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:url" content="https://jakubpejzl.me">
+	<meta name="twitter:title" content="Jakub Pejzl">
+	<meta name="twitter:description" content="Link-in-bio with links to my presence across the internet.">
+	<meta name="twitter:image" content="images/twitter.png">
+	<meta name="twitter:image:alt" content="Metadata">
+
+	<link rel="icon" sizes="192x192" href="images/icon.png">
+	<link rel="apple-touch-icon" href="images/apple.png">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+	<style>
+		*,
+		*::before,
+		*::after {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+		}
+		:root {
+			--bg: #ffffff;
+			--fg: #353F47;
+			--accent: #a398df;
+			--hairline: #c0c0c0;
+			--font: "Jost", system-ui, -apple-system, sans-serif;
+			--xs: 0.5rem;
+			--sm: 1rem;
+			--md: 2rem;
+			--ml: 3rem;
+			--lg: 4rem;
+		}
+		html {
+			height: 100%;
+		}
+		body {
+			font-family: var(--font);
+			font-weight: 400;
+			line-height: 1;
+			color: var(--fg);
+			background: var(--bg);
+			-webkit-font-smoothing: antialiased;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			min-height: 100%;
+			padding: var(--lg);
+		}
+		.page {
+			max-width: 340px;
+			width: 100%;
+		}
+		a {
+			color: var(--fg);
+		}
+		a {
+			text-decoration: underline;
+			text-decoration-color: var(--hairline);
+			text-decoration-thickness: 0.5px;
+			text-underline-offset: 5px;
+		}
+		a:hover {
+			color: var(--accent);
+			text-decoration-color: var(--accent);
+		}
+		.card {
+			background: #f8fafc;
+			padding: 2rem 2.5rem;
+			border: 0.5px solid var(--hairline);
+			text-align: center;
+		}
+		.title {
+			font-size: 1.4rem;
+			font-weight: 700;
+			letter-spacing: -0.02em;
+			margin-bottom: 1.15rem;
+		}
+		.line {
+			border-top: 0.85px solid var(--hairline);
+		}
+		.main {
+			padding: 2rem 0 2.25rem 0;
+		}
+		.label {
+			font-size: 0.6875rem;
+			font-weight: 600;
+			text-transform: uppercase;
+			letter-spacing: 0.08em;
+			opacity: 0.45;
+			margin-bottom: 0.75rem;
+		}
+		.links {
+			display: flex;
+			flex-direction: column;
+			gap: 0.75rem;
+			align-items: center;
+		}
+		.links > a {
+			display: block;
+			font-size: 0.9375rem;
+		}
+		.pair {
+			font-size: 0.9375rem;
+		}
+		.sep {
+			opacity: 0.45;
+		}
+		.section-line {
+			width: 2.5rem;
+			margin: 1.85rem auto;
+			border-top: 0.85px solid #000000;
+		}
+		.footer {
+			display: flex;
+			justify-content: space-between;
+			align-items: baseline;
+			padding-top: 1.15rem;
+		}
+		.footer-link {
+			font-size: 0.75rem;
+		}
+		.modal-trigger {
+			background: none;
+			border: none;
+			cursor: pointer;
+			font-family: var(--font);
+			color: var(--fg);
+			-webkit-tap-highlight-color: transparent;
+			outline: none;
+			text-decoration: underline;
+			text-decoration-color: var(--hairline);
+			text-decoration-thickness: 0.5px;
+			text-underline-offset: 5px;
+			padding: 0;
+		}
+		.modal-trigger:hover {
+			color: var(--accent);
+			text-decoration-color: var(--accent);
+		}
+		dialog {
+			border: none;
+			border-radius: 0;
+			padding: 0;
+			background: none;
+			max-width: 340px;
+			width: 100%;
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			margin: 0;
+		}
+		dialog::backdrop {
+			background: rgba(0, 0, 0, 0.3);
+		}
+		.modal-content {
+			background: #f7f7f7;
+			padding: 2rem 2.5rem;
+			text-align: center;
+			position: relative;
+		}
+		.modal-heading {
+			font-weight: 600;
+			font-size: 0.6875rem;
+			text-transform: uppercase;
+			letter-spacing: 0.08em;
+			opacity: 0.45;
+			margin-bottom: 1.5rem;
+			text-decoration: underline;
+			text-decoration-color: var(--fg);
+			text-decoration-thickness: 0.5px;
+			text-underline-offset: 3px;
+		}
+		.modal-name {
+			font-weight: 600;
+			font-size: 0.9375rem;
+			margin-bottom: 0;
+			line-height: 1.5;
+		}
+		.modal-co {
+			font-weight: 400;
+			font-size: 0.8125rem;
+			line-height: 1.5;
+			margin-top: 0;
+			margin-bottom: 0.4rem;
+		}
+		.modal-co-entity {
+			font-weight: 600;
+		}
+		.modal-addr {
+			font-size: 0.8125rem;
+			line-height: 1.5;
+			margin-top: 0.4rem;
+		}
+		.modal-close {
+			position: absolute;
+			top: 0.5rem;
+			right: 0.75rem;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+			-webkit-tap-highlight-color: transparent;
+			outline: none;
+			opacity: 0.45;
+			font-family: var(--font);
+			color: var(--fg);
+		}
+		.modal-close:hover {
+			opacity: 1;
+		}
+		.addr {
+			font-size: 0.8125rem;
+			line-height: 1.5;
+			font-style: normal;
+		}
+
+		@media (max-width: 640px) {
+			body {
+				padding: 0;
+			}
+			.card {
+				background: none;
+				padding: var(--lg) 0;
+				border: none;
+			}
+			.modal-close:hover {
+				opacity: 0.45;
+			}
+			.modal-trigger:hover {
+				color: var(--fg);
+				text-decoration-color: var(--hairline);
+			}
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="page">
+		<div class="card">
+			<div class="title">Jakub Pejzl</div>
+			<div class="line"></div>
+
+			<div class="main">
+				<div class="label">Messages</div>
+				<div class="links">
+					<a href="mailto:hello@jakubpejzl.me">hello@jakubpejzl.me</a>
+					<div class="pair">
+						<a href="https://t.me/metamind42">Telegram</a>
+						<span class="sep">/</span>
+						<a href="https://signal.me/#eu/cageVvLwKLNY9nCBAv7uJ1CGpbk2U_r6fgc88P36cv1QgZFtRjNFiY5AMs4vH6eu">Signal</a>
+					</div>
+				</div>
+
+				<div class="section-line"></div>
+
+				<div class="label">Socials</div>
+				<div class="links">
+					<div class="pair">
+						<a href="https://bsky.app/profile/metamind42.bsky.social">Bluesky</a>
+						<span class="sep">/</span>
+						<a href="https://www.reddit.com/user/_MyNameIsJakub_">Reddit</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="line"></div>
+			<div class="footer">
+				<a class="footer-link" href="https://jakubpejzl.me">jakubpejzl.me</a>
+				<button class="footer-link modal-trigger" onclick="document.getElementById('legal-modal').showModal()">Impressum</button>
+			</div>
+		</div>
+	</div>
+
+	<dialog id="legal-modal">
+		<div class="modal-content">
+			<button class="modal-close" onclick="document.getElementById('legal-modal').close()">×</button>
+			<p class="modal-heading">§ 5 DDG und § 18 Abs. 2 MStV</p>
+			<p class="modal-name">Jakub Pejzl</p>
+			<p class="modal-co">c/o <span class="modal-co-entity">P&S Assets LLC</span></p>
+			<p class="modal-addr">
+				Bishop Street 1164<br>Suite 940<br>96813 Honolulu, Hawaii<br>Vereinigte Staaten
+			</p>
+		</div>
+	</dialog>
+
+</body>
+
+</html>
