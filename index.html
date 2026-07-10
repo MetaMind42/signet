@@ -76,14 +76,28 @@
 		}
 		a {
 			color: var(--fg);
-		}
-		a {
 			text-decoration: underline;
 			text-decoration-color: var(--hairline);
 			text-decoration-thickness: 0.5px;
 			text-underline-offset: 5px;
+			-webkit-tap-highlight-color: transparent;
 		}
-		a:hover {
+		/* Desktop: hover se chová jako dřív */
+		@media (hover: hover) {
+			a:hover {
+				color: var(--accent);
+				text-decoration-color: var(--accent);
+			}
+			.modal-trigger:hover {
+				color: var(--accent);
+				text-decoration-color: var(--accent);
+			}
+			.modal-close:hover {
+				opacity: 1;
+			}
+		}
+		/* Touch: stejný vizuál jako hover, ale jen po dobu doteku */
+		a:active {
 			color: var(--accent);
 			text-decoration-color: var(--accent);
 		}
@@ -158,7 +172,7 @@
 			text-underline-offset: 5px;
 			padding: 0;
 		}
-		.modal-trigger:hover {
+		.modal-trigger:active {
 			color: var(--accent);
 			text-decoration-color: var(--accent);
 		}
@@ -231,7 +245,7 @@
 			font-family: var(--font);
 			color: var(--fg);
 		}
-		.modal-close:hover {
+		.modal-close:active {
 			opacity: 1;
 		}
 		.addr {
@@ -249,18 +263,11 @@
 				padding: var(--lg) 0;
 				border: none;
 			}
-			.modal-close:hover {
-				opacity: 0.45;
-			}
-			.modal-trigger:hover {
-				color: var(--fg);
-				text-decoration-color: var(--hairline);
-			}
 		}
 	</style>
 </head>
 
-<body>
+<body ontouchstart="">
 
 	<div class="page">
 		<div class="card">
